@@ -19,8 +19,7 @@ public class JokeConverter {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Value>>() {
         }.getType();
-        List<Value> countryLangList = gson.fromJson(countryLangString, type);
-        return countryLangList;
+        return gson.fromJson(countryLangString, type);
     }
 
     @TypeConverter
@@ -31,7 +30,6 @@ public class JokeConverter {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Value>>() {
         }.getType();
-        String json = gson.toJson(countryLang, type);
-        return json;
+        return gson.toJson(countryLang, type);
     }
 }

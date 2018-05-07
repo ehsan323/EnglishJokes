@@ -49,35 +49,4 @@ public class RemoteDataSource implements AppDataContract {
     public void deleteAllJokes() {
 
     }
-
-
-
-
-
-    /*
-    @Override
-    public void findItems(final setOnArrayListener listener) {
-       Call<Joke> call =apiService.getJokesFromServer();
-       call.enqueue(new Callback<Joke>() {
-           @Override
-           public void onResponse(Call<Joke> call, Response<Joke> response) {
-               if (response.isSuccessful()) {
-                   Joke list =response.body();
-                   listener.addArrayListener(list);
-                   listener.addBooleanListener(true);
-                   Log.i("625", list.getValue().size()+"  remote size");
-               } else {
-                   listener.addBooleanListener(false);
-                   Log.i("625", "error");
-               }
-           }
-
-           @Override
-           public void onFailure(Call<Joke> call, Throwable t) {
-               listener.addBooleanListener(false);
-               Log.i("625", "error remote: "+t.toString());
-           }
-       });
-    }
-     */
 }
