@@ -7,7 +7,21 @@ import io.reactivex.Flowable;
 
 public interface AppDataContract {
 
-    Flowable<Joke> getAllJokes();
-    void insertAllJokes(Joke joke);
-    void deleteAllJokes();
+    interface Local{
+        Flowable<Joke> getAllJokes();
+        void insertAllJokes(Joke joke);
+        void deleteAllJokes();
+        void destroyInstance();
+    }
+
+    interface Remote{
+        Flowable<Joke> getAllJokes();
+    }
+
+    interface Repository{
+        Flowable<Joke> getAllJokes();
+        void destroyInstance();
+    }
+
+
 }
