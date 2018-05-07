@@ -68,7 +68,7 @@ public class ApiServiceModule {
 
     @Provides
     @Singleton
-    AppDataContract provideRemoteDataSource(ApiService myApi) {
+    AppDataContract.Remote provideRemoteDataSource(ApiService myApi) {
         return new RemoteDataSource(myApi);
     }
 }

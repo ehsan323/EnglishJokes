@@ -14,7 +14,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
-public class AppRepository implements AppDataContract {
+public class AppRepository implements AppDataContract.Repository {
 
     private LocalDataSource mLocalDataSource;
     private RemoteDataSource mRemoteDataSource;
@@ -30,60 +30,18 @@ public class AppRepository implements AppDataContract {
 
         Flowable<Joke> remote = mRemoteDataSource.getAllJokes()
                 .subscribeOn(Schedulers.io())
-                .doOnNext(new Consumer<Joke>() {
-                    @Override
-                    public void accept(Joke jokes) throws Exception {
-                        mLocalDataSource.deleteAllJokes();
-                        mLocalDataSource.insertAllJokes(jokes);
-                    }
+                .doOnNext(jokes -> {
+                    mLocalDataSource.deleteAllJokes();
+                    mLocalDataSource.insertAllJokes(jokes);
                 });
 
         Flowable<Joke> local =mLocalDataSource.getAllJokes().subscribeOn(Schedulers.io());
 
-          return Flowable.mergeDelayError(local, remote).filter(new Predicate<Joke>() {
-            @Override
-            public boolean test(Joke joke) throws Exception {
-                return joke != null;
-            }
-        });
+          return Flowable.mergeDelayError(local, remote).filter(joke -> joke != null);
     }
 
     @Override
-    public void insertAllJokes(Joke joke) {
-
-    }
-
-    @Override
-    public void deleteAllJokes() {
-
-    }
-
     public void destroyInstance() {
         mLocalDataSource.destroyInstance();
     }
-
-
-
-    /*
-    @Override
-    public void getData() {
-        mRemoteDataSource.findItems(new Remote.setOnArrayListener() {
-            @Override
-            public void addArrayListener(Joke jokes) {
-              mLocalDataSource.insertAllJokes(jokes);
-                Log.i("625", "j: " + jokes.getValue().size());
-            }
-
-            @Override
-            public void addBooleanListener(boolean isChecked) {
-
-            }
-        });
-    }
-
-    @Override
-    public Joke getAllJokes() {
-        return mLocalDataSource.getAllJokes();
-    }
-     */
 }

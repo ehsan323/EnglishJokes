@@ -12,24 +12,24 @@ import java.util.List;
 public class JokeConverter {
 
     @TypeConverter
-    public List<Value> toCountryLangList(String countryLangString) {
-        if (countryLangString == null) {
+    public List<Value> changeToList(String joke) {
+        if (joke == null) {
             return (null);
         }
         Gson gson = new Gson();
         Type type = new TypeToken<List<Value>>() {
         }.getType();
-        return gson.fromJson(countryLangString, type);
+        return gson.fromJson(joke, type);
     }
 
     @TypeConverter
-    public String fromCountryLangList(List<Value> countryLang) {
-        if (countryLang == null) {
+    public String changeToString(List<Value> list) {
+        if (list == null) {
             return (null);
         }
         Gson gson = new Gson();
         Type type = new TypeToken<List<Value>>() {
         }.getType();
-        return gson.toJson(countryLang, type);
+        return gson.toJson(list, type);
     }
 }

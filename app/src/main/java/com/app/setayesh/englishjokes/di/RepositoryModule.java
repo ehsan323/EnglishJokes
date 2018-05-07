@@ -14,13 +14,13 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    AppDataContract getRemoteData(RemoteDataSource remoteDataSource){
+    AppDataContract.Remote getRemoteData(RemoteDataSource remoteDataSource){
         return remoteDataSource;
     }
 
     @Singleton
     @Provides
-    AppDataContract getLocalData(LocalDataSource localDataSource){
+    AppDataContract.Local getLocalData(LocalDataSource localDataSource){
         return localDataSource;
     }
 }

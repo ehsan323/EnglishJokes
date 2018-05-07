@@ -13,7 +13,7 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class LocalDataSource implements AppDataContract {
+public class LocalDataSource implements AppDataContract.Local {
 
     private JokeDao jokeDao;
     private JokeDB jokeDB;
@@ -36,28 +36,17 @@ public class LocalDataSource implements AppDataContract {
     public void insertAllJokes(final Joke joke) {
 
         Executor myExecutor = Executors.newSingleThreadExecutor();
-        myExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                jokeDao.insert(joke);
-            }
-        });
-
-
+        myExecutor.execute(() -> jokeDao.insert(joke));
     }
 
     @Override
     public void deleteAllJokes() {
 
         Executor myExecutor = Executors.newSingleThreadExecutor();
-        myExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                jokeDao.deleteAllJokes();
-            }
-        });
+        myExecutor.execute(() -> jokeDao.deleteAllJokes());
     }
 
+    @Override
     public void destroyInstance()  {
         jokeDB = null;
     }

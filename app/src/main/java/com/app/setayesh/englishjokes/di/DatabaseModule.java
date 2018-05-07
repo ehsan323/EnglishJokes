@@ -3,6 +3,7 @@ package com.app.setayesh.englishjokes.di;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import com.app.setayesh.englishjokes.Model.AppDataContract;
 import com.app.setayesh.englishjokes.Model.Config;
 import com.app.setayesh.englishjokes.Model.Local.JokeDB;
 import com.app.setayesh.englishjokes.Model.Local.JokeDao;
@@ -16,6 +17,7 @@ import dagger.Provides;
 
 @Module
 public class DatabaseModule {
+
     private static final String DATABASE = "database_name";
 
     @Provides
@@ -38,7 +40,7 @@ public class DatabaseModule {
 
     @Singleton
     @Provides
-    LocalDataSource productRepository(JokeDao jokeDao, JokeDB jokeDB) {
+    AppDataContract.Local productRepository(JokeDao jokeDao, JokeDB jokeDB) {
         return new LocalDataSource(jokeDao, jokeDB);
     }
 }

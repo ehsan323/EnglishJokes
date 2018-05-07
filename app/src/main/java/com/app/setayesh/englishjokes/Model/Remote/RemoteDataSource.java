@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RemoteDataSource implements AppDataContract {
+public class RemoteDataSource implements AppDataContract.Remote {
 
     private ApiService apiService;
 
@@ -32,21 +32,6 @@ public class RemoteDataSource implements AppDataContract {
                 .subscribeOn(Schedulers.io())
                 .onBackpressureBuffer()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.i("1397", throwable.getMessage());
-                    }
-                });
-    }
-
-    @Override
-    public void insertAllJokes(Joke joke) {
-
-    }
-
-    @Override
-    public void deleteAllJokes() {
-
+                .doOnError(throwable -> Log.i("1397", throwable.getMessage()));
     }
 }
