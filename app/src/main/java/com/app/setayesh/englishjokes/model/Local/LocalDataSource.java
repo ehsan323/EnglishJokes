@@ -1,7 +1,7 @@
-package com.app.setayesh.englishjokes.Model.Local;
+package com.app.setayesh.englishjokes.model.Local;
 
-import com.app.setayesh.englishjokes.Model.AppDataContract;
-import com.app.setayesh.englishjokes.Model.pojo.Joke;
+import com.app.setayesh.englishjokes.model.AppDataContract;
+import com.app.setayesh.englishjokes.model.pojo.Joke;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

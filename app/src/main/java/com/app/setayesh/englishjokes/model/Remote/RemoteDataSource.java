@@ -1,9 +1,9 @@
-package com.app.setayesh.englishjokes.Model.Remote;
+package com.app.setayesh.englishjokes.model.Remote;
 
 import android.util.Log;
 
-import com.app.setayesh.englishjokes.Model.AppDataContract;
-import com.app.setayesh.englishjokes.Model.pojo.Joke;
+import com.app.setayesh.englishjokes.model.AppDataContract;
+import com.app.setayesh.englishjokes.model.pojo.Joke;
 
 import javax.inject.Inject;
 

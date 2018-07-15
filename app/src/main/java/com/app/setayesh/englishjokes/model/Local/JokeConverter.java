@@ -1,8 +1,8 @@
-package com.app.setayesh.englishjokes.Model.Local;
+package com.app.setayesh.englishjokes.model.Local;
 
 import android.arch.persistence.room.TypeConverter;
 
-import com.app.setayesh.englishjokes.Model.pojo.Value;
+import com.app.setayesh.englishjokes.model.pojo.Value;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,8 +1,8 @@
-package com.app.setayesh.englishjokes.Presenter;
+package com.app.setayesh.englishjokes.ui;
 
-import com.app.setayesh.englishjokes.MainContract;
-import com.app.setayesh.englishjokes.Model.AppRepository;
-import com.app.setayesh.englishjokes.Model.pojo.Joke;
+import com.app.setayesh.englishjokes.model.AppRepository;
+import com.app.setayesh.englishjokes.model.pojo.Joke;
+import com.app.setayesh.englishjokes.ui.MainContract;
 
 import javax.inject.Inject;
 
@@ -15,14 +15,14 @@ import io.reactivex.subscribers.DisposableSubscriber;
 public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.View mView;
-    private AppRepository mRepository;
-    private CompositeDisposable compositeDisposable;
+    @Inject
+    public AppRepository mRepository;
+    @Inject
+    public CompositeDisposable compositeDisposable;
 
     @Inject
-    public MainPresenter(MainContract.View mView, AppRepository mRepository, CompositeDisposable compositeDisposable) {
+    public MainPresenter(MainContract.View mView) {
         this.mView = mView;
-        this.mRepository = mRepository;
-        this.compositeDisposable = compositeDisposable;
     }
 
 
@@ -35,12 +35,12 @@ public class MainPresenter implements MainContract.Presenter {
                 .subscribeWith(new DisposableSubscriber<Joke>() {
                     @Override
                     public void onNext(Joke joke) {
-                     mView.showJokesList(joke);
+                        mView.showJokesList(joke);
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                     mView.showError(t.toString());
+                        mView.showError(t.toString());
                     }
 
                     @Override
@@ -53,17 +53,17 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
+    public void start() {
+        loadJokesList();
+    }
+
+    @Override
     public void attachView(MainContract.View view) {
         this.mView = view;
     }
 
     @Override
     public void detach() {
-        if (!compositeDisposable.isDisposed()){
-         //   compositeDisposable.dispose();
-            compositeDisposable = null;
-        }
         mView = null;
-        mRepository.destroyInstance();
     }
 }

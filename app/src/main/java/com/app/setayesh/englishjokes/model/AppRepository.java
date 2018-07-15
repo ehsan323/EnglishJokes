@@ -1,10 +1,10 @@
-package com.app.setayesh.englishjokes.Model;
+package com.app.setayesh.englishjokes.model;
 
 import android.util.Log;
 
-import com.app.setayesh.englishjokes.Model.Local.LocalDataSource;
-import com.app.setayesh.englishjokes.Model.Remote.RemoteDataSource;
-import com.app.setayesh.englishjokes.Model.pojo.Joke;
+import com.app.setayesh.englishjokes.model.Local.LocalDataSource;
+import com.app.setayesh.englishjokes.model.Remote.RemoteDataSource;
+import com.app.setayesh.englishjokes.model.pojo.Joke;
 
 import javax.inject.Inject;
 

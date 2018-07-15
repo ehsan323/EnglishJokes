@@ -1,4 +1,4 @@
-package com.app.setayesh.englishjokes.View;
+package com.app.setayesh.englishjokes.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.app.setayesh.englishjokes.Model.pojo.Value;
+import com.app.setayesh.englishjokes.model.pojo.Value;
 import com.app.setayesh.englishjokes.R;
 
 import java.util.List;

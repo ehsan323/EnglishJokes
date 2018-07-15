@@ -1,5 +1,5 @@
 
-package com.app.setayesh.englishjokes.Model.pojo;
+package com.app.setayesh.englishjokes.model.pojo;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

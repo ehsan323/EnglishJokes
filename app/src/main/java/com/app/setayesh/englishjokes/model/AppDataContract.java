@@ -1,6 +1,6 @@
-package com.app.setayesh.englishjokes.Model;
+package com.app.setayesh.englishjokes.model;
 
-import com.app.setayesh.englishjokes.Model.pojo.Joke;
+import com.app.setayesh.englishjokes.model.pojo.Joke;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;

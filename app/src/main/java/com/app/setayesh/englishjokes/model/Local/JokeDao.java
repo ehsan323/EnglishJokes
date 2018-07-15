@@ -1,12 +1,12 @@
-package com.app.setayesh.englishjokes.Model.Local;
+package com.app.setayesh.englishjokes.model.Local;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.app.setayesh.englishjokes.Model.Config;
-import com.app.setayesh.englishjokes.Model.pojo.Joke;
+import com.app.setayesh.englishjokes.model.Config;
+import com.app.setayesh.englishjokes.model.pojo.Joke;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;

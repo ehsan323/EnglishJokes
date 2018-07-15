@@ -1,6 +1,6 @@
-package com.app.setayesh.englishjokes.Model.Remote;
+package com.app.setayesh.englishjokes.model.Remote;
 
-import com.app.setayesh.englishjokes.Model.pojo.Joke;
+import com.app.setayesh.englishjokes.model.pojo.Joke;
 
 import io.reactivex.Flowable;
 import retrofit2.Call;
