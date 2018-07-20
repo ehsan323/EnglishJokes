@@ -3,6 +3,7 @@ package com.app.setayesh.englishjokes.ui;
 import android.app.Activity;
 import android.location.Location;
 import android.util.Log;
+import android.view.View;
 
 import com.app.setayesh.englishjokes.Utils.CurrentLocationFinder;
 import com.app.setayesh.englishjokes.Utils.GenerateDeviceInfo;
@@ -20,9 +21,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
-public class MainPresenter<V extends MainContract.View> extends BasePresenter<V> implements MainContract.Presenter<V> {
+public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter{
 
-    //  private MainContract.View mView;
+     private MainContract.View mView;
     @Inject
     public AppRepository mRepository;
     @Inject
@@ -35,8 +36,8 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
     private CurrentLocationFinder locationFinder;
 
     @Inject
-    public MainPresenter(SharedPrefs sharedPrefs) {
-        super(sharedPrefs);
+    public MainPresenter(MainContract.View mView) {
+        this.mView = mView;
     }
 
 
@@ -49,7 +50,7 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
                 .subscribeWith(new DisposableSubscriber<Joke>() {
                     @Override
                     public void onNext(Joke joke) {
-                        getIView().showJokesList(joke);
+                        mView.showJokesList(joke);
                         sharedPrefs.saveJoke(joke);
 
                         sharedPrefs.saveAccessToken("123FKKJUY8DE59FFG");
@@ -58,12 +59,12 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
 
                     @Override
                     public void onError(Throwable t) {
-                        getIView().showError(t.getMessage());
+                        mView.showError(t.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        getIView().showComplete();
+                        mView.showComplete();
                     }
                 });
 
@@ -72,7 +73,7 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
 
     @Override
     public void loadDeviceInfo() {
-        getIView().showDeviceInfo(deviceInfo.getDeviceInfo());
+        mView.showDeviceInfo(deviceInfo.getDeviceInfo());
     }
 
     @Override
@@ -94,19 +95,29 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
     }
 
     @Override
+    public View getView() {
+        return null;
+    }
+
+    @Override
+    public SharedPrefs getSharedPrefs() {
+        return null;
+    }
+
+    @Override
     public void start() {
         loadJokesList();
         loadDeviceInfo();
     }
 
     @Override
-    public void handleApiError() {
-
+    public void attachView(MainContract.View view) {
+        this.mView = view;
     }
 
     @Override
-    public void handleLoggedOut() {
-
+    public void detach() {
+        mView = null;
     }
 
 

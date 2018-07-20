@@ -16,7 +16,7 @@ public interface MainContract {
         void showDeviceInfo(DeviceInfo deviceInfo);
     }
 
-    interface Presenter<V extends View> extends IPresenter<V> {
+    interface Presenter extends IPresenter<View> {
         void loadJokesList();
         void loadDeviceInfo();
         void loadCurrentLocation(Activity activity);

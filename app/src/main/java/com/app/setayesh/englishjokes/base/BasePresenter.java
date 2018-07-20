@@ -1,26 +1,14 @@
 package com.app.setayesh.englishjokes.base;
 
+import android.view.View;
+
 import com.app.setayesh.englishjokes.Utils.SharedPrefs;
 
-import javax.inject.Inject;
+public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
 
-public class BasePresenter<V extends IView> implements IPresenter<V> {
+    public abstract View getView();
+    public abstract SharedPrefs getSharedPrefs();
 
-    @Inject
-    SharedPrefs sharedPrefs;
-
-    private V mIView;
-
-    @Inject
-    public BasePresenter(SharedPrefs sharedPrefs) {
-        this.sharedPrefs = sharedPrefs;
-    }
-
-
-    @Override
-    public void start() {
-
-    }
 
     @Override
     public void handleApiError() {
@@ -33,24 +21,8 @@ public class BasePresenter<V extends IView> implements IPresenter<V> {
     }
 
     public boolean isViewAttached() {
-        return mIView != null;
+        return getView() != null;
     }
 
-    public V getIView() {
-        return mIView;
-    }
 
-    public SharedPrefs getSharedPrefs() {
-        return sharedPrefs;
-    }
-
-    @Override
-    public void attachView(V view) {
-        this.mIView = view;
-    }
-
-    @Override
-    public void detach() {
-      mIView = null;
-    }
 }

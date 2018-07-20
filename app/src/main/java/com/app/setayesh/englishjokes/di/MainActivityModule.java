@@ -17,7 +17,7 @@ public abstract class MainActivityModule {
 
 
     @Provides
-    static MainContract.Presenter  providePresenter(SharedPrefs sharedPrefs) {
-        return new MainPresenter(sharedPrefs);
+    static MainContract.Presenter  providePresenter( MainContract.View view) {
+        return new MainPresenter(view);
     }
 }

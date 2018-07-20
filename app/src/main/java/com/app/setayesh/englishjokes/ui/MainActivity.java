@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity  implements MainContract.View {
     RecyclerView recycler;
 
     @Inject
-    MainPresenter<MainContract.View> mPresenter;
+    MainPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
