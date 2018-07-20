@@ -6,7 +6,7 @@ import com.app.setayesh.englishjokes.Utils.SharedPrefs;
 
 public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
 
-    public abstract View getView();
+    public abstract V getView();
     public abstract SharedPrefs getSharedPrefs();
 
 

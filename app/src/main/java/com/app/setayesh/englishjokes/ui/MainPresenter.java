@@ -94,14 +94,15 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         locationFinder.setupLocationManager();
     }
 
+
     @Override
-    public View getView() {
-        return null;
+    public MainContract.View getView() {
+        return mView;
     }
 
     @Override
     public SharedPrefs getSharedPrefs() {
-        return null;
+        return sharedPrefs;
     }
 
     @Override
