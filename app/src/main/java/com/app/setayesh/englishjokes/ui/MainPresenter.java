@@ -1,8 +1,16 @@
 package com.app.setayesh.englishjokes.ui;
 
+import android.app.Activity;
+import android.location.Location;
+import android.util.Log;
+
+import com.app.setayesh.englishjokes.Utils.CurrentLocationFinder;
+import com.app.setayesh.englishjokes.Utils.GenerateDeviceInfo;
+import com.app.setayesh.englishjokes.Utils.LocationParams;
+import com.app.setayesh.englishjokes.Utils.SharedPrefs;
+import com.app.setayesh.englishjokes.base.BasePresenter;
 import com.app.setayesh.englishjokes.model.AppRepository;
 import com.app.setayesh.englishjokes.model.pojo.Joke;
-import com.app.setayesh.englishjokes.ui.MainContract;
 
 import javax.inject.Inject;
 
@@ -12,17 +20,23 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenter<V extends MainContract.View> extends BasePresenter<V> implements MainContract.Presenter<V> {
 
-    private MainContract.View mView;
+    //  private MainContract.View mView;
     @Inject
     public AppRepository mRepository;
     @Inject
     public CompositeDisposable compositeDisposable;
+    @Inject
+    SharedPrefs sharedPrefs;
+    @Inject
+    GenerateDeviceInfo deviceInfo;
+
+    private CurrentLocationFinder locationFinder;
 
     @Inject
-    public MainPresenter(MainContract.View mView) {
-        this.mView = mView;
+    public MainPresenter(SharedPrefs sharedPrefs) {
+        super(sharedPrefs);
     }
 
 
@@ -35,17 +49,21 @@ public class MainPresenter implements MainContract.Presenter {
                 .subscribeWith(new DisposableSubscriber<Joke>() {
                     @Override
                     public void onNext(Joke joke) {
-                        mView.showJokesList(joke);
+                        getIView().showJokesList(joke);
+                        sharedPrefs.saveJoke(joke);
+
+                        sharedPrefs.saveAccessToken("123FKKJUY8DE59FFG");
+                        sharedPrefs.saveSessionID("2366");
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                        mView.showError(t.toString());
+                        getIView().showError(t.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        mView.showComplete();
+                        getIView().showComplete();
                     }
                 });
 
@@ -53,17 +71,43 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
+    public void loadDeviceInfo() {
+        getIView().showDeviceInfo(deviceInfo.getDeviceInfo());
+    }
+
+    @Override
+    public void loadCurrentLocation(Activity activity) {
+        locationFinder = new CurrentLocationFinder(activity);
+        locationFinder.setupLocationManager();
+        locationFinder.setOnLocationUpdateListener(location -> {
+            LocationParams locationParams = new LocationParams();
+            locationParams.setLatitude(String.valueOf(location.getLatitude()));
+            locationParams.setLongitude(String.valueOf(location.getLongitude()));
+            sharedPrefs.saveLocation(locationParams);
+            Log.i("8852", "onLocationChange: " + location.getLongitude());
+        });
+    }
+
+    @Override
+    public void loadSetUpLocation() {
+        locationFinder.setupLocationManager();
+    }
+
+    @Override
     public void start() {
         loadJokesList();
+        loadDeviceInfo();
     }
 
     @Override
-    public void attachView(MainContract.View view) {
-        this.mView = view;
+    public void handleApiError() {
+
     }
 
     @Override
-    public void detach() {
-        mView = null;
+    public void handleLoggedOut() {
+
     }
+
+
 }

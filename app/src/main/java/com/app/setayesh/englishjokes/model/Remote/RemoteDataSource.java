@@ -32,6 +32,6 @@ public class RemoteDataSource implements AppDataContract.Remote {
                 .subscribeOn(Schedulers.io())
                 .onBackpressureBuffer()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> Log.i("1397", throwable.getMessage()));
+                .doOnError(throwable -> Log.i("1397", "remote: "+throwable.getMessage()));
     }
 }

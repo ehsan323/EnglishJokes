@@ -1,5 +1,6 @@
 package com.app.setayesh.englishjokes.di;
 
+import com.app.setayesh.englishjokes.Utils.SharedPrefs;
 import com.app.setayesh.englishjokes.ui.MainContract;
 import com.app.setayesh.englishjokes.ui.MainPresenter;
 import com.app.setayesh.englishjokes.ui.MainActivity;
@@ -16,7 +17,7 @@ public abstract class MainActivityModule {
 
 
     @Provides
-    static MainContract.Presenter  providePresenter(MainContract.View view) {
-        return new MainPresenter(view);
+    static MainContract.Presenter  providePresenter(SharedPrefs sharedPrefs) {
+        return new MainPresenter(sharedPrefs);
     }
 }
