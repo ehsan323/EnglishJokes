@@ -38,9 +38,10 @@ public class CurrentLocationFinder  implements GoogleApiClient.ConnectionCallbac
     private boolean isLocationAvailable;
 
 
-    public CurrentLocationFinder(Activity activity) {
+    public CurrentLocationFinder(Activity activity, OnLocationUpdateListener onLocationUpdateListener) {
         this.activity = activity;
         buildGoogleApiClient();
+        this.onLocationUpdateListener = onLocationUpdateListener;
     }
 
     public synchronized void buildGoogleApiClient() {
@@ -95,6 +96,7 @@ public class CurrentLocationFinder  implements GoogleApiClient.ConnectionCallbac
 
         } else {
             ActivityCompat.requestPermissions( activity, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSION_CODE);
+            onLocationUpdateListener.onKeepSplash(true);
         }
 
 
@@ -118,11 +120,14 @@ public class CurrentLocationFinder  implements GoogleApiClient.ConnectionCallbac
 
     public interface OnLocationUpdateListener {
         void onLocationChange(Location location);
+        void onKeepSplash(boolean isKeep);
     }
 
+   /*
     public void setOnLocationUpdateListener(OnLocationUpdateListener onLocationUpdateListener) {
         this.onLocationUpdateListener = onLocationUpdateListener;
     }
+    */
 
     private void storeLocation(Location location) {
         if (mGoogleApiClient.isConnected() && onLocationUpdateListener != null) {

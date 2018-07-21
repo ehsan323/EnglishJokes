@@ -78,15 +78,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
     @Override
     public void loadCurrentLocation(Activity activity) {
-        locationFinder = new CurrentLocationFinder(activity);
-        locationFinder.setupLocationManager();
-        locationFinder.setOnLocationUpdateListener(location -> {
-            LocationParams locationParams = new LocationParams();
-            locationParams.setLatitude(String.valueOf(location.getLatitude()));
-            locationParams.setLongitude(String.valueOf(location.getLongitude()));
-            sharedPrefs.saveLocation(locationParams);
-            Log.i("8852", "onLocationChange: " + location.getLongitude());
-        });
+
     }
 
     @Override

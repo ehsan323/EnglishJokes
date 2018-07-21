@@ -59,16 +59,7 @@ public class MainActivity extends BaseActivity  implements MainContract.View {
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSION_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                   mPresenter.loadSetUpLocation();
-                }
-                break;
-        }
-    }
+
 
 
     @Override
