@@ -21,6 +21,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
+import static android.content.ContentValues.TAG;
+
 public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter{
 
      private MainContract.View mView;
@@ -55,11 +57,15 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
                         sharedPrefs.saveAccessToken("123FKKJUY8DE59FFG");
                         sharedPrefs.saveSessionID("2366");
+
+                        Log.i("202323", "onError: "+joke.getValue().size());
                     }
 
                     @Override
                     public void onError(Throwable t) {
                         mView.showError(t.getMessage());
+
+                        Log.i("202323", "onError: "+t.getMessage());
                     }
 
                     @Override

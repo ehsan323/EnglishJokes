@@ -54,19 +54,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-        if ("com.android.packageinstaller.permission.ui.GrantPermissionsActivity".equals(cn.getClassName())){
-            //permission dialog is displayed
-            Log.i("5521", "onRequestPermissionsResult:  onStart visible");
-        } else {
-            keepSplash(false);
-            Log.i("5521", "onRequestPermissionsResult:  onStart invisible");
-        }
-    }
+
 
     @Override
     protected void setUp() {

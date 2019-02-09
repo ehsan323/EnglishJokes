@@ -1,38 +1,27 @@
 package com.app.setayesh.englishjokes.ui;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.location.Location;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.app.setayesh.englishjokes.Utils.CurrentLocationFinder;
+import com.app.setayesh.englishjokes.R;
 import com.app.setayesh.englishjokes.Utils.DeviceInfo;
-import com.app.setayesh.englishjokes.Utils.LocationParams;
-import com.app.setayesh.englishjokes.Utils.SharedPrefs;
 import com.app.setayesh.englishjokes.base.BaseActivity;
 import com.app.setayesh.englishjokes.model.pojo.Joke;
-import com.app.setayesh.englishjokes.R;
-
-
-import java.util.HashMap;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerAppCompatActivity;
-
-import static com.app.setayesh.englishjokes.Utils.CurrentLocationFinder.REQUEST_PERMISSION_CODE;
 
 
-public class MainActivity extends BaseActivity  implements MainContract.View {
+public class MainActivity extends BaseActivity implements MainContract.View {
 
 
     @BindView(R.id.recycler)
@@ -40,12 +29,23 @@ public class MainActivity extends BaseActivity  implements MainContract.View {
 
     @Inject
     MainPresenter mPresenter;
+    @BindView(R.id.nav)
+    NavigationView nav;
+    @BindView(R.id.drawer)
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_rounded_edges);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    //    dialog.show();
+
 
         mPresenter.start();
         mPresenter.loadCurrentLocation(this);
@@ -57,9 +57,6 @@ public class MainActivity extends BaseActivity  implements MainContract.View {
     protected void setUp() {
 
     }
-
-
-
 
 
     @Override
@@ -97,9 +94,6 @@ public class MainActivity extends BaseActivity  implements MainContract.View {
         super.onDestroy();
         mPresenter.detach();
     }
-
-
-
 
 
 }
